@@ -9,7 +9,7 @@ from keras.layers import Dense, Dropout, Activation
 from keras.optimizers import SGD
 
 # 预定义数据
-data_source_file_name = "D:\\projects\\python\\test\\csv\\dataSource\\data.csv"  # todo 改成相对目录
+data_source_file_name = "./dataSource/data.csv"  # todo 改成相对目录
 num_classes = 51  # 51个志愿者
 dataNum_eachClass = 400  # 每种样本的数据量
 num_feature = 31  # 31维数据

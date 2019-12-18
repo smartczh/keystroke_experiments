@@ -22,9 +22,11 @@ ht_rp_index = list(ht_index + rp_index)  # eer:9.70%
 ht_rp_index.sort()
 pp_rp_index = list(pp_index + rp_index)  # eer:9.80%
 pp_rp_index.sort()
+ht_pp_rp_index = list(ht_index+pp_index+rp_index)  # eer:没法算，奇异矩阵
+ht_pp_rp_index.sort()
 all_data = np.loadtxt(data_source_file_name, dtype=float, delimiter=",", skiprows=1, usecols=tuple(range(3, 34)))
 
-index = pp_rp_index  # todo 考虑哪些特征
+index = ht_index  # todo 考虑哪些特征
 eer_array = []
 for i in range(num_classes):
     train_data = all_data[i * dataNum_eachClass:i * dataNum_eachClass + int(train_ratio * dataNum_eachClass), index]
@@ -33,7 +35,7 @@ for i in range(num_classes):
                          i * dataNum_eachClass + int(train_ratio * dataNum_eachClass):(i + 1) * dataNum_eachClass,
                          index]
     train_cov = np.cov(train_data, rowvar=False)  # 计算协方差矩阵
-    mean = np.mean(train_data, axis=0, keepdims=True)[0]  # axis=1返回横轴平均值,0纵轴平均值
+    mean = np.mean(train_data, axis=0, keepdims=True)[0]  # axis=1返回横轴平均值,0纵轴平均值[0]从矩阵表示的向量中拿出向量表示的向量
     positive_scores = multivariate_normal.pdf(positive_test_data, mean=mean, cov=train_cov).tolist()
     negative_scores = []
     for j in range(num_classes):
@@ -52,3 +54,4 @@ for i in range(num_classes):
     eer_array.append(EER)
 eer_array.sort()
 print("eer=" + str(sum(eer_array) / len(eer_array)))
+print("end")

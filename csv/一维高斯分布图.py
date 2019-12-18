@@ -16,7 +16,7 @@ for example in examples:
     key = example[0]
     column = example[1]
     data_list = all_data[key][column]
-    x = tools.filter_data(data_list, 3)
+    x = tools.filter_data(data_list, 3)  #过滤数据
     mean = x.mean()
     std = x.std()
     print("user=" + key + " column=" + str(column) + " mean=" + str(mean) + " std=" + str(std) + " first=" + str(
